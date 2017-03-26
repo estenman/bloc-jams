@@ -9,18 +9,16 @@ var revealPoint = function() {
     }             
 };*/
 var pointsArray = document.getElementsByClassName('point');
+
+var revealPoint = function(elementTest) {
+    elementTest.style.opacity = 1;
+    elementTest.style.transform = "scaleX(1) translateY(0)";
+    elementTest.style.msTransform = "scaleX(1) translateY(0)";
+    elementTest.style.WebkitTransform = "scaleX(1) translateY(0)";      
+};
+
 var animatePoints = function(points) {
-    var revealPoint = function(index, forEach) {
-      points[index].style.opacity = 1;
-      points[index].style.transform = "scaleX(1) translateY(0)";
-      points[index].style.msTransform = "scaleX(1) translateY(0)";
-      points[index].style.WebkitTransform = "scaleX(1) translateY(0)";      
-    };
-    var forEach = function(){
-        for (var i = 0; i < points.length; i++) {
-        revealPoint(i);
-    }
- };
+   forEach(points, revealPoint);
 };
 
 window.onload = function() {
