@@ -28,6 +28,21 @@ var albumMarconi = {
      ]
  };
 
+var albumEricka = {
+    title: 'Celtic choir',
+    artist: 'Christina',
+    label: 'ES',
+    year: '2017',
+    albumArtUrl: 'assets/images/album_covers/20.png',
+    songs: [
+         { title: 'Ave Maria', duration: '5:01' },
+         { title: 'Dominua Patris', duration: '2:01' },
+         { title: 'Sancto', duration: '3:30'},
+         { title: 'Domini', duration: '3:17' },
+         { title: 'Fructus bentris', duration: '6:15'}
+     ]
+};
+
 var createSongRow = function(songNumber, songName, songLength) {
     var template =
         '<tr class="album-view-song-item">'
@@ -55,10 +70,22 @@ var setCurrentAlbum = function(album) {
     albumSongList.innerHTML = '';
     
     for (var i = 0; i < album.songs.length; i++) {
-        albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);;
+        albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
     }
 };
 
 window.onload = function() {
     setCurrentAlbum(albumPicasso);
+};
+
+document.getElementsByClassName('album-cover-art')[0].addEventListener('click', toggleCover);
+function toggleCover() {
+    var albumShown = document.getElementsByClassName('album-view-title')[0].innerText;
+    if (albumShown === "The Colors") {
+        setCurrentAlbum(albumMarconi);
+    } else if (albumShown === "The Telephone") {
+        setCurrentAlbum(albumEricka);
+    } else {
+        setCurrentAlbum(albumPicasso);
+    }
 };
