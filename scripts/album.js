@@ -37,7 +37,27 @@ var createSongRow = function(songNumber, songName, songLength) {
     + '</tr>'
     ;
     
-    return $(template);
+    var $row = $(template);
+    
+    var onHover = function(event) {
+        console.log($(this).find('.song-item-number').attr('data-song-number'));
+        if($(this).parent() === 'album-view-song-item'){
+            if ($(this).find('.song-item-number').attr('data-song-number') !== currentlyPlayingSong) {
+            $(this).find('.song-item-number').text('playButtonTemplate');        
+        }
+        }
+    };
+    
+    var offHover = function(event) {
+        var $songItemNumber = $(this).find('.song-item-number').attr('data-song-number');
+        if ($songItemNumber != currentlyPlayingSong) {
+          $(this).find('song-item-number').text('song-item-number');
+        }
+    };
+
+    $row.find('.song-item-number').click(clickHandler);
+    $row.hover(onHover, offHover);
+    return $row;
 };
 
 var setCurrentAlbum = function(album) {
@@ -118,30 +138,14 @@ var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause">
 //Store state of playing songs
 var currentlyPlayingSong = null;
 
-window.onload = function() {
+$(document).ready(function() {
     setCurrentAlbum(albumPicasso);
-    
-    songListContainer.addEventListener('mouseover', function(event) {
-        if (event.target.parentElement.className === 'album-view-song-item') {
-            var songItem = getSongItem(event.target);
-            if (songItem.getAttribute('data-song-number') !== currentlyPlayingSong) {
-                songItem.innerHTML = playButtonTemplate;
-            }
-        }
-    });
-    
+  
     for (var i = 0; i < songRows.length; i++) {
-        songRows[i].addEventListener('mouseleave', function(event) {
-        var songItem = getSongItem(event.target);
-        var songItemNumber = songItem.getAttribute('data-song-number');
-            if (songItemNumber !== currentlyPlayingSong) {
-                songItem.innerHTML = songItemNumber;   
-            }
-    });
     songRows[i].addEventListener('click', function(event) {
             //Event handler call
             clickHandler(event.target);
     });
    }
-};
+});
 
