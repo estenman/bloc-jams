@@ -8,7 +8,7 @@ var buildCollectionItemTemplate = function(){
    + '      <br/>'
    + '      <a href="album.html"> Pablo Picasso </a>'
    + '      <br/>'
-   + '      X songs'
+   + '      5 songs'
    + '      <br/>'
    + '    </p>'
    + '  </div>'
@@ -21,10 +21,9 @@ var buildCollectionItemTemplate = function(){
 $(window).load(function() {
     var $collectionContainer = $('.album-covers');
     $collectionContainer.empty();
-    
+
     for (var i = 0; i < 12; i++) {
         var $newThumbnail = buildCollectionItemTemplate();
         $collectionContainer.append($newThumbnail);
     }
 });
-
